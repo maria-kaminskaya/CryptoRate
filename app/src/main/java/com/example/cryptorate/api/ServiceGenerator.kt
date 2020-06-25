@@ -5,8 +5,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class ServiceGenerator {
-    private val BASE_URL = "https://api.coinmarketcap.com/v1/"
-    private val apiKey: String = "ff664882-56a7-4471-8113-cf05754d54ec"
+    private val BASE_URL = "https://pro-api.coinmarketcap.com"
 
     private var retrofit: Retrofit? = null
 
@@ -15,7 +14,7 @@ class ServiceGenerator {
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
         val client = OkHttpClient.Builder().addInterceptor(interceptor).build()
         retrofit = Retrofit.Builder()
-            .baseUrl("https://pro-api.coinmarketcap.com")
+            .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .client(client)
             .build()

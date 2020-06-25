@@ -7,11 +7,11 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cryptorate.R
 import com.example.cryptorate.data.Datum
+import kotlinx.android.synthetic.main.item_rate.view.*
 
-
-class CoinAdapter internal constructor(data: List<Datum>) :
+class CoinAdapter (data: List<Datum>) :
     RecyclerView.Adapter<CoinAdapter.ViewHolder?>() {
-    private val mData: List<Datum>
+    private val mData: List<Datum> = data
     private var mClickListener: ItemClickListener? = null
 
       override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -29,22 +29,19 @@ class CoinAdapter internal constructor(data: List<Datum>) :
         val symbol = holder.symbol
         symbol.text = datum.symbol
         val price = holder.price
-        price.text = "Price: $" + String.format(
-            "%,f",
-            datum.quote?.uSD?.price
-        )
+        price.text = "Price: $" + String.format("%,f", datum.quote?.uSD?.price)
     }
 
     override fun getItemCount(): Int {
         return mData.size
     }
 
-    inner class ViewHolder internal constructor(itemView: View) :
+    inner class ViewHolder (itemView: View) :
         RecyclerView.ViewHolder(itemView),
         View.OnClickListener {
-        var name: TextView = itemView.findViewById(R.id.name)
-        var symbol: TextView = itemView.findViewById(R.id.symbol)
-        var price: TextView = itemView.findViewById(R.id.price)
+        var name: TextView = itemView.name
+        var symbol: TextView = itemView.symbol
+        var price: TextView = itemView.price
         override fun onClick(view: View) {
             if (mClickListener != null) mClickListener!!.onItemClick(view, adapterPosition)
         }
@@ -54,23 +51,16 @@ class CoinAdapter internal constructor(data: List<Datum>) :
         }
     }
 
-    // convenience method for getting data at click position
     fun getItem(id: Int): Datum {
         return mData[id]
     }
 
-    // allows clicks events to be caught
     fun setClickListener(itemClickListener: ItemClickListener?) {
         mClickListener = itemClickListener
     }
 
-    // parent activity will implement this method to respond to click events
     interface ItemClickListener {
         fun onItemClick(view: View?, position: Int)
     }
 
-    // data is passed into the constructor
-    init {
-        mData = data
-    }
 }
