@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">CryptoRate</string>
+    <string name="hello_world">Hello World!</string>
+    <string name="no_connection">Нет доступа к сети. Включите доступ к сети и попроуйте позже</string>
+</resources>
